@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="@android:style/Theme.Holo.Light">
+	</style>
+	<dimen name="sideOffset">32dp</dimen>
+	<dimen name="midOffset">8dp</dimen>
+</resources>
