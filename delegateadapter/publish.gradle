@@ -1,0 +1,23 @@
+
+// To upload manualy call ./gradlew bintrayUpload
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    configurations = ['archives']
+    pkg {
+        repo = "android"
+        name = "clean-constructor-lint-rule"
+        desc = "Android lint rule for detecting non clean constructors."
+        websiteUrl = "https://github.com/Grigory-Rylov/clean-constructor-lint-rule"
+        vcsUrl = "https://github.com/Grigory-Rylov/clean-constructor-lint-rule"
+        githubRepo = "https://github.com/Grigory-Rylov/clean-constructor-lint-rule"
+        githubReleaseNotesFile = "https://github.com/Grigory-Rylov/clean-constructor-lint-rule/blob/master/README.md"
+        publicDownloadNumbers = true
+        licenses = ["Apache-2.0"]
+        publish = true
+        version {
+            name = project.ext.PUBLISH_VERSION
+            released  = new Date()
+        }
+    }
+}
