@@ -1,23 +1,20 @@
 package com.grishberg.listarch.listarchitecture.rv;
 
-import android.support.v7.widget.*;
-import android.graphics.*;
-import android.support.v7.widget.RecyclerView.*;
-import android.view.*;
-import android.support.annotation.*;
-import android.content.*;
+import android.graphics.Rect;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
-import com.grishberg.listarch.listarchitecture.R;
-
+/**
+ * Item decoration for side paddings.
+ */
 public class CustomItemDecorator extends RecyclerView.ItemDecoration {
-    private final LayoutManager lm;
     private int sideOffset;
     private int midOffset;
 
-    public CustomItemDecorator(LayoutManager lm, Context c) {
-        this.lm = lm;
-        sideOffset = c.getResources().getDimensionPixelSize(R.dimen.sideOffset);
-        midOffset = c.getResources().getDimensionPixelSize(R.dimen.midOffset);
+    public CustomItemDecorator(int sideOffset,
+                               int midOffset) {
+        this.sideOffset = sideOffset;
+        this.midOffset = midOffset;
     }
 
     @Override

@@ -9,7 +9,7 @@ import com.grishberg.listarch.listarchitecture.*;
 public class GreenAdapterDelegate implements AdapterDelegate<Item, GreenItem, ItemViewHolder> {
     private final LayoutInflater inflater;
 
-    GreenAdapterDelegate(LayoutInflater inflater) {
+    public GreenAdapterDelegate(LayoutInflater inflater) {
         this.inflater = inflater;
     }
 

@@ -1,20 +1,16 @@
 package com.grishberg.listarch.listarchitecture.rv;
 
-import android.view.*;
-import android.support.v7.widget.*;
+import android.support.v7.widget.RecyclerView;
 
 import com.github.grishberg.delegateadapter.AdapterDelegate;
 import com.github.grishberg.delegateadapter.CompositeDelegateAdapter;
 
-import java.util.*;
+import java.util.List;
 
 public class ItemsAdapter {
     private final CompositeDelegateAdapter<Item> adapter;
 
-    public ItemsAdapter(LayoutInflater inflater) {
-        ArrayList<AdapterDelegate> delegates = new ArrayList<>();
-        delegates.add(new RedItemsAdapterDelegate(inflater));
-        delegates.add(new GreenAdapterDelegate(inflater));
+    public ItemsAdapter(List<AdapterDelegate> delegates) {
         adapter = new CompositeDelegateAdapter<>(delegates);
     }
 

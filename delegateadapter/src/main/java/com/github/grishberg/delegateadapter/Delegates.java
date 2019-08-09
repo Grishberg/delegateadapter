@@ -26,8 +26,7 @@ class Delegates<T> {
     }
 
     @SuppressWarnings("unchecked")
-    void bindVh(RecycableViewHolder vh, List<T> items, int pos) {
-        T item = items.get(pos);
+    void bindVh(RecycableViewHolder vh, T item, int pos) {
         for (int i = 0, l = delegates.size(); i < l; i++) {
             AdapterDelegate adapterDelegate = delegates.get(i);
             if (adapterDelegate.isForType(item)) {

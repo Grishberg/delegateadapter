@@ -1,10 +1,17 @@
 package com.grishberg.listarch.listarchitecture.rv;
 
 public class GreenItem implements Item<ItemViewHolder> {
+    private final int id;
     private final String title;
 
-    public GreenItem(String title) {
+    public GreenItem(int id, String title) {
+        this.id = id;
         this.title = "green " + title;
+    }
+
+    @Override
+    public int getId() {
+        return id;
     }
 
     @Override

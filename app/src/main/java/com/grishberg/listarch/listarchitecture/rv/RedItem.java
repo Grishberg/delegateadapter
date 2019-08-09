@@ -2,9 +2,17 @@ package com.grishberg.listarch.listarchitecture.rv;
 
 public class RedItem implements Item<ItemViewHolder> {
     private final String title;
+    private final int id;
 
-    public RedItem(String title) {
+
+    public RedItem(int id, String title) {
+        this.id = id;
         this.title = "red " + title;
+    }
+
+    @Override
+    public int getId() {
+        return id;
     }
 
     @Override

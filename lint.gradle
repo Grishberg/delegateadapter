@@ -1,0 +1,12 @@
+android {
+    lintOptions{
+        abortOnError true
+        // if true, only report errors.
+        ignoreWarnings false
+        warningsAsErrors true
+        disable "OldTargetApi"
+    }
+}
+dependencies {
+    lintChecks "com.github.grishberg:clean-constructor-lint-rule:1.5.0"
+}

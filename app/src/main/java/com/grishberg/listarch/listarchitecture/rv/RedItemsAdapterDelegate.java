@@ -10,7 +10,7 @@ import com.grishberg.listarch.listarchitecture.R;
 public class RedItemsAdapterDelegate implements AdapterDelegate<Item, RedItem, ItemViewHolder> {
     private final LayoutInflater inflater;
 
-    RedItemsAdapterDelegate(LayoutInflater inflater) {
+    public RedItemsAdapterDelegate(LayoutInflater inflater) {
         this.inflater = inflater;
     }
 

@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply from: '../lint.gradle'
 
 android {
     compileSdkVersion 27
