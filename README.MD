@@ -1,0 +1,1 @@
+Yet another Adapter Delegate pattern for RecyclerView.
