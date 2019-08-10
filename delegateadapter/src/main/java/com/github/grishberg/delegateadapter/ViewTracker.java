@@ -2,10 +2,12 @@ package com.github.grishberg.delegateadapter;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.View;
 
 public class ViewTracker implements ItemsTracker {
+    private static final String TAG = ViewTracker.class.getSimpleName();
     private int prevStartPos = -1;
     private final SparseIntArray counts = new SparseIntArray();
 
@@ -14,17 +16,22 @@ public class ViewTracker implements ItemsTracker {
             return;
         }
 
+        if (!(rv.getAdapter() instanceof CompositeDelegateAdapter)) {
+            return;
+        }
+
+        final CompositeDelegateAdapter adapter = (CompositeDelegateAdapter) rv.getAdapter();
         final LinearLayoutManager lm = (LinearLayoutManager) rv.getLayoutManager();
 
         rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                scroll(rv, lm);
+                scroll(adapter, lm);
             }
         });
     }
 
-    private void scroll(RecyclerView rv, LinearLayoutManager lm) {
+    private void scroll(CompositeDelegateAdapter adapter, LinearLayoutManager lm) {
         int startPos = lm.findFirstCompletelyVisibleItemPosition();
         int endPos = lm.findLastCompletelyVisibleItemPosition();
 
@@ -33,17 +40,12 @@ public class ViewTracker implements ItemsTracker {
         }
         prevStartPos = startPos;
         for (int i = startPos; i <= endPos; i++) {
-            View child = lm.findViewByPosition(i);
-            if (child == null) {
+            if (i >= adapter.getItemCount()) {
+                Log.e(TAG, "pos = " + i +" is greater then adapter count " + adapter.getItemCount());
                 return;
             }
 
-            Object obj = child.getTag(CompositeDelegateAdapter.TAG_KEY);
-            if (!(obj instanceof ItemWithId)) {
-                return;
-            }
-
-            int id = ((ItemWithId) obj).getId();
+            int id = (int) adapter.getItemId(i);
             counts.put(id, counts.get(id) + 1);
         }
     }
