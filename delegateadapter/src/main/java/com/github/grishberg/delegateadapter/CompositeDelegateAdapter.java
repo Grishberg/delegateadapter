@@ -11,7 +11,6 @@ import java.util.List;
  * Adapter with composition of delegate.
  */
 public class CompositeDelegateAdapter<T extends ItemWithId> extends RecyclerView.Adapter<RecycableViewHolder> {
-    static final int TAG_KEY = 145923452;
     private final ArrayList<T> items = new ArrayList<>();
     private final Delegates<T> delegates;
 
@@ -33,6 +32,11 @@ public class CompositeDelegateAdapter<T extends ItemWithId> extends RecyclerView
         return items.size();
     }
 
+    @Override
+    public long getItemId(int position) {
+        return items.get(position).getId();
+    }
+
     @NonNull
     @Override
     public RecycableViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int type) {
@@ -43,7 +47,6 @@ public class CompositeDelegateAdapter<T extends ItemWithId> extends RecyclerView
     @Override
     public void onBindViewHolder(@NonNull RecycableViewHolder vh, int pos) {
         T item = items.get(pos);
-        vh.itemView.setTag(TAG_KEY, item);
         delegates.bindVh(vh, item, pos);
     }
 
@@ -54,7 +57,6 @@ public class CompositeDelegateAdapter<T extends ItemWithId> extends RecyclerView
 
     @Override
     public void onViewRecycled(@NonNull RecycableViewHolder holder) {
-        holder.itemView.setTag(TAG_KEY, null);
         delegates.onViewRecycled(holder);
     }
 }

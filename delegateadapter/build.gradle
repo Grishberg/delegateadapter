@@ -1,8 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: "com.jfrog.artifactory"
-apply plugin: "org.sonarqube"
-apply plugin: "jacoco"
 
 def libVersion = '1.0.0'
 
@@ -13,7 +11,6 @@ ext {
 }
 apply from: '../lint.gradle'
 apply from: 'publish.gradle'
-apply from: 'sonar.gradle'
 
 android {
     compileSdkVersion 28
@@ -51,29 +48,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
 }
-
-// Enable jacoco coverage for AndroidTests and UnitTests
-// Source https://medium.com/@rafael_toledo
-task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
-
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
-
-    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
-    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
-    def mainSrc = "${project.projectDir}/src/agenda_main_menu/java"
-
-    sourceDirectories = files([mainSrc])
-    classDirectories = files([debugTree])
-    executionData = fileTree(dir: "$buildDir", includes: [
-            "jacoco/testDebugUnitTest.exec",
-            "outputs/code-coverage/connected/*coverage.ec"
-    ])
-}
-
-tasks.sonarqube.dependsOn jacocoTestReport
 
 //need to call  ./gradlew clean build generateRelease
 apply from: 'android-release.gradle'
