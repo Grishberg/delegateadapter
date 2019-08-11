@@ -4,9 +4,9 @@ android {
         // if true, only report errors.
         ignoreWarnings false
         warningsAsErrors true
-        disable "OldTargetApi"
+        disable "OldTargetApi", "GoogleAppIndexingWarning"
     }
 }
 dependencies {
-    lintChecks "com.github.grishberg:clean-constructor-lint-rule:1.5.0"
+    lintChecks "com.github.grishberg:clean-constructor-lint-rule:1.5.3"
 }
