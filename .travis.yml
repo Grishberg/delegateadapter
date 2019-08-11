@@ -31,7 +31,9 @@ addons:
       - master
       - ".*"
     script:
+#      - ./gradlew clean assembleDebug assembleRelease testDebug createDebugUnitTestCoverageReport
       - "./gradlew sonarqube"
+
 after_success:
   - mvn clean test jacoco:report coveralls:jacoco
 
