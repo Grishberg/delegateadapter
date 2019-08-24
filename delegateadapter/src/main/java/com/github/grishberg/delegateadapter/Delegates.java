@@ -1,12 +1,15 @@
 package com.github.grishberg.delegateadapter;
 
-import android.support.v4.util.SparseArrayCompat;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import androidx.collection.SparseArrayCompat;
 
 class Delegates<T> {
     private final SparseArrayCompat<AdapterDelegate> delegates = new SparseArrayCompat<>();
+    private final ArrayList<RecycableViewHolder> attachedHolders = new ArrayList<>();
 
     Delegates(List<AdapterDelegate> delegates) {
         int type = 0;
@@ -22,7 +25,8 @@ class Delegates<T> {
                 return i;
             }
         }
-        throw new IllegalStateException("Delegate not found");
+        throw new IllegalStateException("Delegate not found for item =" +
+                items.get(pos) + ", pos = " + pos);
     }
 
     @SuppressWarnings("unchecked")
@@ -47,5 +51,61 @@ class Delegates<T> {
 
     void onViewRecycled(RecycableViewHolder vh) {
         vh.onRecycled();
+    }
+
+    @SuppressWarnings("unchecked")
+    void onViewAttachedToWindow(RecycableViewHolder holder) {
+        attachedHolders.add(holder);
+        holder.onAtachedToWindow();
+
+        AdapterDelegate delegate = delegates.get(holder.getItemViewType());
+        if (delegate == null) {
+            throw new IllegalStateException("Not found delegate for viewType = "
+                    + holder.getItemViewType());
+        }
+        //delegate.onViewAttachedToWindow(holder);
+    }
+
+    @SuppressWarnings("unchecked")
+    void onViewDetachedFromWindow(RecycableViewHolder holder) {
+        attachedHolders.remove(holder);
+        holder.onDetachedFromWindow();
+
+        AdapterDelegate delegate = delegates.get(holder.getItemViewType());
+        if (delegate == null) {
+            throw new IllegalStateException("Not found delegate for viewType = "
+                    + holder.getItemViewType());
+        }
+        //delegate.onViewDetachedFromWindow(holder);
+    }
+
+    void onResume() {
+        for (int i = 0, l = delegates.size(); i < l; i++) {
+            AdapterDelegate adapterDelegate = delegates.get(i);
+            //adapterDelegate.onResume();
+        }
+        for (RecycableViewHolder holder : attachedHolders) {
+            holder.onResume();
+        }
+    }
+
+    void onPause() {
+        for (int i = 0, l = delegates.size(); i < l; i++) {
+            AdapterDelegate adapterDelegate = delegates.get(i);
+            //adapterDelegate.onPause();
+        }
+        for (RecycableViewHolder holder : attachedHolders) {
+            holder.onPaused();
+        }
+    }
+
+    void onDestroy() {
+        for (int i = 0, l = delegates.size(); i < l; i++) {
+            AdapterDelegate adapterDelegate = delegates.get(i);
+            //adapterDelegate.onDestroy();
+        }
+        for (RecycableViewHolder holder : attachedHolders) {
+            holder.onDestroy();
+        }
     }
 }
