@@ -1,6 +1,9 @@
 package com.grishberg.verticalfeedsdomain
 
-import com.grishberg.verticalfeeds.*
+import com.grishberg.verticalfeeds.AnyFeedItem
+import com.grishberg.verticalfeeds.FeedContentOutputAction
+import com.grishberg.verticalfeeds.FeedsContentInputBounds
+import com.grishberg.verticalfeeds.VerticalFeedContent
 import javax.inject.Inject
 
 /**
@@ -25,7 +28,7 @@ class FeedContent @Inject constructor(
         outputBounds.remove(bounds)
     }
 
-    private fun notifyFeedListChanged(feeds: List<FeedItem<*>>) {
+    private fun notifyFeedListChanged(feeds: List<AnyFeedItem>) {
         for (bounds in outputBounds) {
             bounds.updateFeeds(feeds)
         }

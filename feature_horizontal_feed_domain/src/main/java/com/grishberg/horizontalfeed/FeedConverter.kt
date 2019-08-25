@@ -1,8 +1,7 @@
 package com.grishberg.horizontalfeed
 
-import com.grishberg.verticalfeeds.FeedItem
-import com.grishberg.verticalfeeds.NewsRenderer
+import com.grishberg.verticalfeeds.NewsCard
 
 interface FeedConverter {
-    fun convert(feeds: List<FeedItem<NewsRenderer>>): List<HorizontalItem<*>>
+    fun convert(feeds: List<NewsCard>): List<AnyHorizontalCard>
 }

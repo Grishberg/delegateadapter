@@ -7,9 +7,12 @@ import com.github.grishberg.consoleview.Logger;
 import com.github.grishberg.consoleview.LoggerImpl;
 import com.grishberg.core.ActivityLifeCycleAction;
 import com.grishberg.core.ActivityLifeCycleDelegate;
+import com.grishberg.feedsui.presentation.RenderedFeedsFactory;
 import com.grishberg.feedsui.presentation.VerticalFeedFacade;
 import com.grishberg.horizontalfeed.HorizontalContent;
 import com.grishberg.horizontalfeed.HorizontalFeedFacade;
+import com.grishberg.horizontalfeed.cards.FeedConverterImpl;
+import com.grishberg.horizontalfeed.cards.HorizontalCardsFactoryImpl;
 import com.grishberg.horizontalfeed.di.DaggerHorizontalFeedComponent;
 import com.grishberg.horizontalfeed.di.HorisontalFeedModule;
 import com.grishberg.horizontalfeed.di.HorizontalFeedComponent;
@@ -39,12 +42,13 @@ public class MainActivity extends FragmentActivity implements ActivityLifeCycleD
         ViewGroup content = findViewById(R.id.content);
 
         VerticalFeedComponent verticalFeedComponent = DaggerVerticalFeedComponent.builder()
-                .feedModule(new FeedModule())
+                .feedModule(new FeedModule(new RenderedFeedsFactory()))
                 .build();
         verticalFeedContent = verticalFeedComponent.provideFeedContent();
 
         HorizontalFeedComponent horizontalFeedComponent = DaggerHorizontalFeedComponent.builder()
-                .horisontalFeedModule(new HorisontalFeedModule(verticalFeedContent))
+                .horisontalFeedModule(new HorisontalFeedModule(verticalFeedContent,
+                        new FeedConverterImpl(), new HorizontalCardsFactoryImpl()))
                 .build();
         HorizontalContent horizontalContent = horizontalFeedComponent.provideHorizontalFeedContent();
 

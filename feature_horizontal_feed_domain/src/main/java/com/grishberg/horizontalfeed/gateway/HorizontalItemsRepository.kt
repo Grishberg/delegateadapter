@@ -1,11 +1,14 @@
-package com.grishberg.horizontalfeed.repository
+package com.grishberg.horizontalfeed.gateway
 
+import com.grishberg.horizontalfeed.HorizontalCardsFactory
 import com.grishberg.horizontalfeed.HorizontalItem
 import com.grishberg.horizontalfeed.InputBounds
 import com.grishberg.horizontalfeed.InputBoundsAction
 import java.util.*
 
-class HorisontalItemsRepository : InputBounds {
+class HorizontalItemsRepository(
+        private val horizontalCardsFactory: HorizontalCardsFactory
+) : InputBounds {
     private val actions = mutableListOf<InputBoundsAction>()
     private val items = mutableListOf<HorizontalItem<*>>()
 
@@ -32,9 +35,9 @@ class HorisontalItemsRepository : InputBounds {
         val res = ArrayList<HorizontalItem<*>>()
         for (i in 0..19) {
             if (i % 2 == 0) {
-                res.add(RedItem(i, "Menu item $i"))
+                res.add(horizontalCardsFactory.createRedItem(i, "Menu item $i"))
             } else {
-                res.add(GreenItem(i, "Menu item $i"))
+                res.add(horizontalCardsFactory.createGreenItem(i, "Menu item $i"))
             }
         }
         return res

@@ -11,5 +11,5 @@ interface FeedsContentInputBounds {
 
     fun requestFeeds()
 
-    fun getFeeds() : List<FeedItem<NewsRenderer>>
+    fun getFeeds() : List<NewsCard>
 }

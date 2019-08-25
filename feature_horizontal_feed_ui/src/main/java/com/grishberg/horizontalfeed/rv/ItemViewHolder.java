@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import com.github.grishberg.delegateadapter.RecycableViewHolder;
 import com.grishberg.horizontalfeed.R;
-import com.grishberg.horizontalfeed.alerts.AlertRenderer;
+import com.grishberg.horizontalfeed.renderer.alerts.AlertRenderer;
 
 class ItemViewHolder extends RecycableViewHolder implements AlertRenderer {
     private final TextView tv;

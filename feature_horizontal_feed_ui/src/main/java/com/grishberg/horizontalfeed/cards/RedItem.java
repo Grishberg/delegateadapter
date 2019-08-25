@@ -1,7 +1,7 @@
-package com.grishberg.horizontalfeed.repository;
+package com.grishberg.horizontalfeed.cards;
 
 import com.grishberg.horizontalfeed.HorizontalItem;
-import com.grishberg.horizontalfeed.alerts.AlertRenderer;
+import com.grishberg.horizontalfeed.renderer.alerts.AlertRenderer;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -52,6 +52,7 @@ class HorizontalFeedFacade(
             adapter.populate(feeds)
         })
 
+        notifyInitiated()
     }
 
     private fun notifyInitiated() {

@@ -1,12 +1,17 @@
-package com.grishberg.verticalfeedsdomain.repository
+package com.grishberg.verticalfeedsdomain.gateway
 
-import com.grishberg.verticalfeeds.FeedItem
+import com.grishberg.verticalfeeds.CardsFactory
 import com.grishberg.verticalfeeds.FeedsContentInputBounds
-import com.grishberg.verticalfeeds.NewsRenderer
+import com.grishberg.verticalfeeds.NewsCard
 
-internal class FakeRepository : FeedsContentInputBounds {
+/**
+ * Creates news feed items.
+ */
+internal class FakeNewsRepository(
+        private val cardsFactory: CardsFactory
+) : FeedsContentInputBounds {
     private val actions = mutableListOf<FeedsContentInputBounds.FeedReceivedAction>()
-    private val feeds = mutableListOf<NewsFeed>()
+    private val feeds = mutableListOf<NewsCard>()
     private var lastId: Int = 0
 
     override fun addFeedReceivedAction(action: FeedsContentInputBounds.FeedReceivedAction) {
@@ -25,10 +30,10 @@ internal class FakeRepository : FeedsContentInputBounds {
         notifyFeedReceived()
     }
 
-    private fun createFeeds(): MutableList<NewsFeed> {
-        val feeds = mutableListOf<NewsFeed>()
+    private fun createFeeds(): List<NewsCard> {
+        val feeds = mutableListOf<NewsCard>()
         for (i in 0 until 20) {
-            feeds.add(NewsFeed(lastId++, "title $lastId", "description $lastId"))
+            feeds.add(cardsFactory.createNewsCard(lastId++, "title $lastId", "description $lastId"))
         }
         return feeds
     }
@@ -39,7 +44,7 @@ internal class FakeRepository : FeedsContentInputBounds {
         }
     }
 
-    override fun getFeeds(): List<FeedItem<NewsRenderer>> {
+    override fun getFeeds(): List<NewsCard> {
         return feeds
     }
 }

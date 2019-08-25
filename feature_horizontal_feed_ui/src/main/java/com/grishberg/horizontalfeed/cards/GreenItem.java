@@ -1,11 +1,11 @@
-package com.grishberg.horizontalfeed.repository;
+package com.grishberg.horizontalfeed.cards;
 
 import com.grishberg.horizontalfeed.HorizontalItem;
-import com.grishberg.horizontalfeed.alerts.AlertRenderer;
+import com.grishberg.horizontalfeed.renderer.alerts.AlertRenderer;
 
 import org.jetbrains.annotations.NotNull;
 
-public class GreenItem implements HorizontalItem<AlertRenderer> {
+class GreenItem implements HorizontalItem<AlertRenderer> {
     private final int id;
     private final String title;
 

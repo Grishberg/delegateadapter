@@ -2,7 +2,8 @@ package com.grishberg.horizontalfeed
 
 import com.grishberg.verticalfeeds.FeedContentOutputAction
 import com.grishberg.verticalfeeds.FeedItem
-import com.grishberg.verticalfeeds.NewsRenderer
+import com.grishberg.verticalfeeds.NewsCard
+import com.grishberg.verticalfeeds.renderer.news.NewsRenderer
 import com.grishberg.verticalfeeds.VerticalFeedContent
 
 class HorizontalContentImpl(
@@ -12,7 +13,7 @@ class HorizontalContentImpl(
 ) : HorizontalContent, InputBoundsAction, FeedContentOutputAction {
     private val actions = mutableListOf<OutputBoundsAction>()
     private val alerts = mutableListOf<HorizontalItem<*>>()
-    private val feeds = mutableListOf<HorizontalItem<*>>()
+    private val feeds = mutableListOf<AnyHorizontalCard>()
 
     init {
         inputBounds.addInputAction(this)
@@ -42,7 +43,7 @@ class HorizontalContentImpl(
         /* not used */
     }
 
-    override fun onUpdateNews(news: List<FeedItem<NewsRenderer>>) {
+    override fun onUpdateNews(news: List<NewsCard>) {
         if (news.isEmpty()) {
             return
         }

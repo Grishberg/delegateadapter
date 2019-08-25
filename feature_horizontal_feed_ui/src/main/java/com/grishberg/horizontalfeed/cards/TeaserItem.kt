@@ -1,9 +1,9 @@
-package com.grishberg.horizontalfeed.repository
+package com.grishberg.horizontalfeed.cards
 
 import com.grishberg.horizontalfeed.HorizontalItem
-import com.grishberg.horizontalfeed.teasers.TeaserRenderer
+import com.grishberg.horizontalfeed.renderer.teasers.TeaserRenderer
 import com.grishberg.verticalfeeds.FeedItem
-import com.grishberg.verticalfeeds.NewsRenderer
+import com.grishberg.verticalfeeds.renderer.news.NewsRenderer
 
 internal class TeaserItem(
         private val verticalItem: FeedItem<NewsRenderer>,

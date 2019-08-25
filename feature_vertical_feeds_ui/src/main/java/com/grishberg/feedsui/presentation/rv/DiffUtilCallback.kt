@@ -9,7 +9,7 @@ class DiffUtilCallback(
 ) : DiffUtil.Callback() {
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-            oldItems[oldItemPosition].type() == newItems[newItemPosition].type()
+            oldItems[oldItemPosition].type == newItems[newItemPosition].type
 
     override fun getOldListSize(): Int = oldItems.size
 

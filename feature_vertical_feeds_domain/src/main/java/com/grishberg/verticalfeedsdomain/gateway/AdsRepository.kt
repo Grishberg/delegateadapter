@@ -1,9 +1,15 @@
-package com.grishberg.verticalfeedsdomain.repository
+package com.grishberg.verticalfeedsdomain.gateway
 
-import com.grishberg.verticalfeeds.FeedItem
+import com.grishberg.verticalfeeds.AdsCard
+import com.grishberg.verticalfeeds.CardsFactory
 import com.grishberg.verticalfeeds.FeedsAdsInputBounds
 
-internal class AdsRepository : FeedsAdsInputBounds {
+/**
+ * Creates ads feed item.
+ */
+internal class AdsRepository(
+        private val cardsFactory: CardsFactory
+) : FeedsAdsInputBounds {
     override fun addAdsReceivedAction(action: FeedsAdsInputBounds.AdsReceivedAction) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -16,7 +22,7 @@ internal class AdsRepository : FeedsAdsInputBounds {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getAds(): List<FeedItem<*>> {
+    override fun getAds(): List<AdsCard> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

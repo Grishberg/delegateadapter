@@ -1,7 +1,7 @@
-package com.grishberg.horizontalfeed.repository
+package com.grishberg.horizontalfeed.cards
 
-import com.grishberg.horizontalfeed.teasers.TeaserRenderer
-import com.grishberg.verticalfeeds.NewsRenderer
+import com.grishberg.horizontalfeed.renderer.teasers.TeaserRenderer
+import com.grishberg.verticalfeeds.renderer.news.NewsRenderer
 
 internal class NewsToTeasersRendererAdapter {
     fun getAdapter(teaserRenderer: TeaserRenderer): NewsRenderer {

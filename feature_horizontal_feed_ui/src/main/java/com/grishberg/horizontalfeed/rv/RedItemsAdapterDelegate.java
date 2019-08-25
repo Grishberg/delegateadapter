@@ -7,7 +7,7 @@ import com.github.grishberg.delegateadapter.AdapterDelegate;
 import com.github.grishberg.delegateadapter.RecycableViewHolder;
 import com.grishberg.horizontalfeed.HorizontalItem;
 import com.grishberg.horizontalfeed.R;
-import com.grishberg.horizontalfeed.alerts.AlertRenderer;
+import com.grishberg.horizontalfeed.renderer.alerts.AlertRenderer;
 
 public class RedItemsAdapterDelegate implements AdapterDelegate<HorizontalItem<AlertRenderer>, ItemViewHolder> {
     private final LayoutInflater inflater;

@@ -11,5 +11,5 @@ interface FeedsAdsInputBounds {
 
     fun requestAds()
 
-    fun getAds() : List<FeedItem<*>>
+    fun getAds(): List<AdsCard>
 }
