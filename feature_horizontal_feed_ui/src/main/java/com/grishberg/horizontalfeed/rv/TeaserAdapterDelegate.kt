@@ -10,10 +10,10 @@ import com.grishberg.horizontalfeed.renderer.teasers.TeaserRenderer
 
 class TeaserAdapterDelegate(
         private val inflater: LayoutInflater
-) : AdapterDelegate<HorizontalItem<TeaserRenderer>, HorizontalTeaserViewHolder> {
+) : AdapterDelegate<com.grishberg.horizontalfeed.HorizontalItem<TeaserRenderer>, HorizontalTeaserViewHolder> {
 
     override fun onBindViewHolder(vh: HorizontalTeaserViewHolder,
-                                  item: HorizontalItem<TeaserRenderer>) {
+                                  item: com.grishberg.horizontalfeed.HorizontalItem<TeaserRenderer>) {
         item.render(vh)
     }
 
@@ -21,6 +21,6 @@ class TeaserAdapterDelegate(
         return HorizontalTeaserViewHolder(inflater.inflate(R.layout.teaser_item_layout, parent, false))
     }
 
-    override fun isForType(item: HorizontalItem<TeaserRenderer>): Boolean =
+    override fun isForType(item: com.grishberg.horizontalfeed.HorizontalItem<TeaserRenderer>): Boolean =
             item.type() == "teaser"
 }

@@ -16,7 +16,7 @@ class ItemViewHolder extends RecycableViewHolder implements AlertRenderer {
     }
 
     @Override
-    public void setTitle(String t) {
+    public void showTitle(String t) {
         tv.setText(t);
     }
 }

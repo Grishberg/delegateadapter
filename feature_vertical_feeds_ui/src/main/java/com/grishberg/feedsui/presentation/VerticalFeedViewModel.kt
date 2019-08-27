@@ -3,18 +3,19 @@ package com.grishberg.feedsui.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.grishberg.verticalfeeds.AnyFeedItem
 import com.grishberg.verticalfeeds.FeedContentOutputAction
 import com.grishberg.verticalfeeds.FeedItem
-import com.grishberg.verticalfeeds.VerticalFeedContent
+import com.grishberg.verticalfeeds.FeedContent
 
 /**
  * Used for updating data to VerticalFeedView.
  */
 class VerticalFeedViewModel(
-        private var content: VerticalFeedContent
+        private var content: FeedContent
 ) : ViewModel(), FeedContentOutputAction {
 
-    private val _feeds = MutableLiveData<List<FeedItem<*>>>()
+    private val _feeds = MutableLiveData<List<AnyFeedItem>>()
     val feeds: LiveData<List<FeedItem<*>>>
         get() = _feeds
 
@@ -26,7 +27,7 @@ class VerticalFeedViewModel(
         content.unregisterOutputBounds(this)
     }
 
-    override fun updateFeeds(newFeeds: List<FeedItem<*>>) {
+    override fun updateFeeds(newFeeds: List<AnyFeedItem>) {
         _feeds.value = newFeeds
     }
 }

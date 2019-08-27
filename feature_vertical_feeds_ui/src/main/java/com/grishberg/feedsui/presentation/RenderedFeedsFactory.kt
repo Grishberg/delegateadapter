@@ -1,6 +1,5 @@
 package com.grishberg.feedsui.presentation
 
-import android.net.Uri
 import com.grishberg.feedsui.presentation.cards.AdsFeed
 import com.grishberg.feedsui.presentation.cards.NewsFeed
 import com.grishberg.verticalfeeds.AdsCard
@@ -12,6 +11,6 @@ class RenderedFeedsFactory : CardsFactory {
         NewsFeed(id, title, description)
 
 
-    override fun createAdsCard(id: Int, title: String, targetUri: Uri): AdsCard =
+    override fun createAdsCard(id: Int, title: String, targetUri: String): AdsCard =
         AdsFeed(id, title)
 }

@@ -2,8 +2,8 @@ package com.grishberg.verticalfeedsdomain.di
 
 import com.grishberg.verticalfeeds.CardsFactory
 import com.grishberg.verticalfeeds.FeedsContentInputBounds
-import com.grishberg.verticalfeeds.VerticalFeedContent
-import com.grishberg.verticalfeedsdomain.FeedContent
+import com.grishberg.verticalfeeds.FeedContent
+import com.grishberg.verticalfeedsdomain.FeedContentUseCase
 import com.grishberg.verticalfeedsdomain.gateway.FakeNewsRepository
 import dagger.Module
 import dagger.Provides
@@ -20,6 +20,6 @@ class FeedModule(
 
     @Singleton
     @Provides
-    fun provideFeedContent(feedsRepository: FeedsContentInputBounds): VerticalFeedContent =
-            FeedContent(feedsRepository)
+    fun provideFeedContent(feedsRepository: FeedsContentInputBounds): FeedContent =
+            FeedContentUseCase(feedsRepository)
 }

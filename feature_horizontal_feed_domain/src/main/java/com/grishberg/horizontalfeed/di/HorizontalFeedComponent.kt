@@ -7,5 +7,5 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [HorisontalFeedModule::class])
 interface HorizontalFeedComponent {
-    fun provideHorizontalFeedContent(): HorizontalContent
+    fun provideHorizontalFeedContent(): com.grishberg.horizontalfeed.HorizontalContent
 }

@@ -35,4 +35,7 @@ dependencies {
     implementation project(path: ':feature_vertical_feeds_ui')
     implementation project(path: ':feature_vertical_feeds')
     implementation project(path: ':feature_horizontal_feed_domain')
+    implementation project(path: ':feature_horizontal_feed')
+    implementation project(path: ':feature_content_ui')
+    implementation project(path: ':feature_content_domain')
 }

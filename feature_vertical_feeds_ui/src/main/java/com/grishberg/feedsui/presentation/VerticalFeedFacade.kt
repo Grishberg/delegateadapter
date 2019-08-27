@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.grishberg.core.ComponentScope
 import com.grishberg.core.ComponentScopeAction
-import com.grishberg.verticalfeeds.VerticalFeedContent
+import com.grishberg.verticalfeeds.FeedContent
 
 class VerticalFeedFacade(
-        private val content: VerticalFeedContent
+        private val content: FeedContent
 ) : ComponentScope {
     private val scopeActions = mutableListOf<ComponentScopeAction>()
     private var initiated: Boolean = false
@@ -46,7 +46,7 @@ class VerticalFeedFacade(
 
     @SuppressWarnings("unchecked")
     private class ViewModelFactory(
-            private val content: VerticalFeedContent
+            private val content: FeedContent
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return VerticalFeedViewModel(content) as T

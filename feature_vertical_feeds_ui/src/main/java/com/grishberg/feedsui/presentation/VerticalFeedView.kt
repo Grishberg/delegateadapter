@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.grishberg.feedsui.presentation.rv.AdaptersDelegateFactory
 import com.grishberg.feedsui.presentation.rv.NewsViewHolderFactory
 import com.grishberg.feedsui.presentation.rv.VerticalFeedsAdapter
-import com.grishberg.verticalfeeds.FeedItem
+import com.grishberg.verticalfeeds.AnyFeedItem
 
 internal class VerticalFeedView constructor(
-        private val viewModel: VerticalFeedViewModel,
+        viewModel: VerticalFeedViewModel,
         ctx: FragmentActivity
 ) : RecyclerView(ctx) {
 
@@ -21,10 +21,10 @@ internal class VerticalFeedView constructor(
 
     init {
         adapter.attachToRecyclerView(this)
-        viewModel.feeds.observe(ctx, Observer<List<FeedItem<*>>> { feeds ->
-            adapter.populate(feeds)
-        })
         val lm = LinearLayoutManager(ctx, VERTICAL, false)
         layoutManager = lm
+        viewModel.feeds.observe(ctx, Observer<List<AnyFeedItem>> { feeds ->
+            adapter.populate(feeds)
+        })
     }
 }

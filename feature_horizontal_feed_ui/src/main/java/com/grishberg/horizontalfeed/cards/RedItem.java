@@ -21,7 +21,7 @@ class RedItem implements HorizontalItem<AlertRenderer> {
 
     @Override
     public void render(AlertRenderer renderer) {
-        renderer.setTitle(title);
+        renderer.showTitle(title);
     }
 
     @NotNull

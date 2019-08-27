@@ -1,18 +1,17 @@
 package com.grishberg.horizontalfeed
 
-import com.grishberg.verticalfeeds.FeedContentOutputAction
-import com.grishberg.verticalfeeds.FeedItem
-import com.grishberg.verticalfeeds.NewsCard
-import com.grishberg.verticalfeeds.renderer.news.NewsRenderer
-import com.grishberg.verticalfeeds.VerticalFeedContent
+import com.grishberg.verticalfeeds.*
 
+/**
+ * Use case of horizontal cards.
+ */
 class HorizontalContentImpl(
         private val inputBounds: InputBounds,
-        private val verticalFeedContent: VerticalFeedContent,
+        private val verticalFeedContent: FeedContent,
         private val feedsToHorizontalItemsConverter: FeedConverter
 ) : HorizontalContent, InputBoundsAction, FeedContentOutputAction {
     private val actions = mutableListOf<OutputBoundsAction>()
-    private val alerts = mutableListOf<HorizontalItem<*>>()
+    private val alerts = mutableListOf<AnyHorizontalCard>()
     private val feeds = mutableListOf<AnyHorizontalCard>()
 
     init {
@@ -39,8 +38,18 @@ class HorizontalContentImpl(
         notifyHorizontalItemsUpdated()
     }
 
-    override fun updateFeeds(newFeeds: List<FeedItem<*>>) {
+    override fun updateFeeds(newFeeds: List<AnyFeedItem>) {
         /* not used */
+    }
+
+    override fun onCardSelected(clickedCard: AnyHorizontalCard) {
+        notifyCardSelected(clickedCard)
+    }
+
+    private fun notifyCardSelected(clickedCard: AnyHorizontalCard) {
+        for (action in actions) {
+            action.onItemSelected(clickedCard)
+        }
     }
 
     override fun onUpdateNews(news: List<NewsCard>) {
@@ -53,7 +62,7 @@ class HorizontalContentImpl(
     }
 
     private fun notifyHorizontalItemsUpdated() {
-        val content = mutableListOf<HorizontalItem<*>>()
+        val content = mutableListOf<AnyHorizontalCard>()
         content.addAll(alerts)
         content.addAll(feeds)
 

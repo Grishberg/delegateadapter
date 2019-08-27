@@ -31,7 +31,7 @@ class HorizontalFeedFacade(
 
         val delegates = ArrayList<AdapterDelegate<*, *>>()
         delegates.add(RedItemsAdapterDelegate(inflater))
-        delegates.add(GreenAdapterDelegate(inflater))
+        delegates.add(GreenAdapterDelegate(inflater, viewModel))
         delegates.add(TeaserAdapterDelegate(inflater))
         adapter = ItemsAdapter(delegates)
 

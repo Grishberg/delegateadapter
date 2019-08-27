@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 class HorizontalFeedViewModel(
         private var content: HorizontalContent
 ) : ViewModel(), OutputBoundsAction {
-    private val _feeds = MutableLiveData<List<HorizontalItem<*>>>()
-    val feeds: LiveData<List<HorizontalItem<*>>>
+    private val _feeds = MutableLiveData<List<AnyHorizontalCard>>()
+    val feeds: LiveData<List<AnyHorizontalCard>>
         get() = _feeds
 
     init {
@@ -19,7 +19,12 @@ class HorizontalFeedViewModel(
         content.unregisterOutputBoundsUpdateAction(this)
     }
 
-    override fun updateItems(items: List<HorizontalItem<*>>) {
+    override fun updateItems(items: List<AnyHorizontalCard>) {
         _feeds.value = items
+    }
+
+    fun onClickedByCard(position: Int) {
+        val clickedCard = _feeds.value?.get(position) ?: return
+        content.onCardSelected(clickedCard)
     }
 }

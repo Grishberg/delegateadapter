@@ -8,10 +8,10 @@ import com.grishberg.verticalfeeds.renderer.news.NewsRenderer
 internal class TeaserItem(
         private val verticalItem: FeedItem<NewsRenderer>,
         private val newsToTeasersAdapter: NewsToTeasersRendererAdapter
-) : HorizontalItem<TeaserRenderer> {
+) : com.grishberg.horizontalfeed.HorizontalItem<TeaserRenderer> {
 
     override fun render(renderer: TeaserRenderer) {
-        verticalItem.render(newsToTeasersAdapter.getAdapter(renderer))
+        verticalItem.render(newsToTeasersAdapter.createAdapter(renderer))
     }
 
     override fun type(): String = "teaser"

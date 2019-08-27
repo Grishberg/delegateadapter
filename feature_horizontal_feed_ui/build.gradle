@@ -42,6 +42,7 @@ dependencies {
     implementation project(path: ':delegateadapter')
     implementation project(path: ':feature_vertical_feeds')
     implementation project(path: ':feature_horizontal_feed_domain')
+    implementation project(path: ':feature_horizontal_feed')
 }
 repositories {
     mavenCentral()

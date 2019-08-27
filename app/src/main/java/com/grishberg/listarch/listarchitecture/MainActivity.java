@@ -16,7 +16,7 @@ import com.grishberg.horizontalfeed.cards.HorizontalCardsFactoryImpl;
 import com.grishberg.horizontalfeed.di.DaggerHorizontalFeedComponent;
 import com.grishberg.horizontalfeed.di.HorisontalFeedModule;
 import com.grishberg.horizontalfeed.di.HorizontalFeedComponent;
-import com.grishberg.verticalfeeds.VerticalFeedContent;
+import com.grishberg.verticalfeeds.FeedContent;
 import com.grishberg.verticalfeedsdomain.di.DaggerVerticalFeedComponent;
 import com.grishberg.verticalfeedsdomain.di.FeedModule;
 import com.grishberg.verticalfeedsdomain.di.VerticalFeedComponent;
@@ -31,7 +31,7 @@ public class MainActivity extends FragmentActivity implements ActivityLifeCycleD
     private VerticalFeedFacade verticalFeedFacade;
     private ArrayList<ActivityLifeCycleAction> lifecycleActions = new ArrayList<>();
     private HorizontalFeedFacade horizontalFeedFacade;
-    private VerticalFeedContent verticalFeedContent;
+    private FeedContent verticalFeedContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

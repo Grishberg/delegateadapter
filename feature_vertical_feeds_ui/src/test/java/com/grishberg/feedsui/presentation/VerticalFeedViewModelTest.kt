@@ -3,7 +3,7 @@ package com.grishberg.feedsui.presentation
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.grishberg.verticalfeeds.FeedContentOutputAction
 import com.grishberg.verticalfeeds.FeedItem
-import com.grishberg.verticalfeeds.VerticalFeedContent
+import com.grishberg.verticalfeeds.FeedContent
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.mock
@@ -17,7 +17,7 @@ class VerticalFeedViewModelTest {
     val testRule = InstantTaskExecutorRule()
 
     private lateinit var contentOutputAction: FeedContentOutputAction
-    private val content = mock<VerticalFeedContent> {
+    private val content = mock<FeedContent> {
         doAnswer { iom -> contentOutputAction = iom.getArgument(0) }
                 .whenever(it).registerOutputBoundsAction(any())
     }

@@ -9,7 +9,7 @@ import com.grishberg.horizontalfeed.renderer.teasers.TeaserRenderer
 class HorizontalTeaserViewHolder(v: View) : RecycableViewHolder(v), TeaserRenderer {
     private val tv = v.findViewById<TextView>(R.id.title)
 
-    override fun setTitle(title: String) {
+    override fun showTitle(title: String) {
         tv.text = title
     }
 }

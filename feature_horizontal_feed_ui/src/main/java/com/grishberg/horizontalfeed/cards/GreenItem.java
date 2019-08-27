@@ -27,6 +27,6 @@ class GreenItem implements HorizontalItem<AlertRenderer> {
 
     @Override
     public void render(AlertRenderer vh) {
-        vh.setTitle(title);
+        vh.showTitle(title);
     }
 }
