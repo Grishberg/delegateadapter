@@ -1,6 +1,6 @@
 package com.github.grishberg.delegateadapter;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 /**
@@ -20,6 +20,18 @@ public abstract class RecycableViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void onDetachedFromWindow() {
+        /* to be implemented in subclass */
+    }
+
+    public void onResume() {
+        /* to be implemented in subclass */
+    }
+
+    public void onPaused() {
+        /* to be implemented in subclass */
+    }
+
+    public void onDestroy() {
         /* to be implemented in subclass */
     }
 }

@@ -1,6 +1,6 @@
 package com.github.grishberg.delegateadapter;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 public interface ItemsTracker {
     void startTracking(final RecyclerView rv);

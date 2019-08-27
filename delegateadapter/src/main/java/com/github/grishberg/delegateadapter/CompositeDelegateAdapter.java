@@ -1,11 +1,14 @@
 package com.github.grishberg.delegateadapter;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
+
+import com.grishberg.delegateadapter.ItemWithId;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Adapter with composition of delegate.
@@ -25,6 +28,13 @@ public class CompositeDelegateAdapter<T extends ItemWithId> extends RecyclerView
     public void populate(List<T> i) {
         items.clear();
         items.addAll(i);
+    }
+
+    /**
+     * @return copy of items.
+     */
+    public List<T> getItems() {
+        return new ArrayList<>(items);
     }
 
     @Override
@@ -58,5 +68,27 @@ public class CompositeDelegateAdapter<T extends ItemWithId> extends RecyclerView
     @Override
     public void onViewRecycled(@NonNull RecycableViewHolder holder) {
         delegates.onViewRecycled(holder);
+    }
+
+    @Override
+    public void onViewAttachedToWindow(@NonNull RecycableViewHolder holder) {
+        delegates.onViewAttachedToWindow(holder);
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(@NonNull RecycableViewHolder holder) {
+        delegates.onViewDetachedFromWindow(holder);
+    }
+
+    public void onResume() {
+        delegates.onResume();
+    }
+
+    public void onPause() {
+        delegates.onPause();
+    }
+
+    public void onDestroy() {
+        delegates.onDestroy();
     }
 }

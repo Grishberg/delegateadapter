@@ -2,6 +2,4 @@
 <resources>
 	<style name="AppTheme" parent="@android:style/Theme.Material.Light">
 	</style>
-	<dimen name="sideOffset">32dp</dimen>
-	<dimen name="midOffset">8dp</dimen>
 </resources>

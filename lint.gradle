@@ -8,5 +8,5 @@ android {
     }
 }
 dependencies {
-    lintChecks "com.github.grishberg:clean-constructor-lint-rule:1.5.3"
+    lintChecks "com.github.grishberg:clean-constructor-lint-rule:1.6.0"
 }

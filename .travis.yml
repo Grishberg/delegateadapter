@@ -7,20 +7,9 @@ android:
     - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
-    -
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
-    # - sys-img-armeabi-v7a-android-28
-    # - sys-img-x86-android-17
 licenses:
   - android-sdk-license-.+
 
-# Emulator Management: Create, Start and Wait
-#before_script:
-#  - echo no | android create avd --force -n test -t android-28 --abi armeabi-v7a
-#  - emulator -avd test -no-skin -no-audio -no-window &
-#  - android-wait-for-emulator
-#  - adb shell input keyevent 82 &
 
 addons:
   sonarcloud:
@@ -31,9 +20,7 @@ addons:
       - master
       - ".*"
     script:
-#      - ./gradlew clean assembleDebug assembleRelease testDebug createDebugUnitTestCoverageReport
       - "./gradlew sonarqube"
-
 after_success:
   - mvn clean test jacoco:report coveralls:jacoco
 
@@ -45,8 +32,3 @@ deploy:
   on:
     branch: master
     # tags: true - for deploying only for tagged commit
-
-env:
-  global:
-    # install timeout in minutes (2 minutes by default)
-    - ADB_INSTALL_TIMEOUT=8
