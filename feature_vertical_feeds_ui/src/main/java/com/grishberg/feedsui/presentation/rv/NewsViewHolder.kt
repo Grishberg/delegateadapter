@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.TextView
 import com.github.grishberg.delegateadapter.RecycableViewHolder
 import com.grishberg.feedsui.R
-import com.grishberg.verticalfeeds.renderer.news.NewsRenderer
+import com.grishberg.feedsui.presentation.cards.renderer.news.NewsRenderer
 
 internal class NewsViewHolder(view: View) : RecycableViewHolder(view), NewsRenderer {
     private val titleView = view.findViewById<TextView>(R.id.title)

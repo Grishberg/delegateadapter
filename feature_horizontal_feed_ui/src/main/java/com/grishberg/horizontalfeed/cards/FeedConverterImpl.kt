@@ -6,12 +6,12 @@ import com.grishberg.horizontalfeed.TeaserCard
 import com.grishberg.verticalfeeds.NewsCard
 
 class FeedConverterImpl : FeedConverter {
-    private val adapter = NewsToTeasersRendererAdapter()
+    // TODO: provide renderer for item.
 
     override fun convert(feeds: List<NewsCard>): List<AnyHorizontalCard> {
         val newItems = mutableListOf<TeaserCard>()
         for (f in feeds) {
-            newItems.add(TeaserItem(f, adapter))
+            newItems.add(TeaserItem(f))
         }
         return newItems
     }

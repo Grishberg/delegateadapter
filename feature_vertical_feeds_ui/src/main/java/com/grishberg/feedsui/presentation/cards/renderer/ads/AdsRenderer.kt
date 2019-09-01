@@ -1,4 +1,4 @@
-package com.grishberg.verticalfeeds.renderer.ads
+package com.grishberg.feedsui.presentation.cards.renderer.ads
 
 /**
  * Renders ads items.

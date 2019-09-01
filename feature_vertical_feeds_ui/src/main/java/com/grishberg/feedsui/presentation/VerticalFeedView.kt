@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.grishberg.feedsui.presentation.cards.renderer.RendererProvider
 import com.grishberg.feedsui.presentation.rv.AdaptersDelegateFactory
 import com.grishberg.feedsui.presentation.rv.NewsViewHolderFactory
 import com.grishberg.feedsui.presentation.rv.VerticalFeedsAdapter
@@ -12,11 +13,13 @@ import com.grishberg.verticalfeeds.AnyFeedItem
 
 internal class VerticalFeedView constructor(
         viewModel: VerticalFeedViewModel,
-        ctx: FragmentActivity
+        ctx: FragmentActivity,
+        rendererProvider: RendererProvider
 ) : RecyclerView(ctx) {
 
     private val newsViewHolderFactory = NewsViewHolderFactory(LayoutInflater.from(ctx))
-    private val adaptersDelegateFactory = AdaptersDelegateFactory(newsViewHolderFactory)
+    private val adaptersDelegateFactory = AdaptersDelegateFactory(newsViewHolderFactory,
+            rendererProvider)
     private val adapter = VerticalFeedsAdapter(adaptersDelegateFactory)
 
     init {

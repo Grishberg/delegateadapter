@@ -9,6 +9,8 @@ public interface AdapterDelegate<T, VH extends RecycableViewHolder> {
 
     boolean isForType(T item);
 
+    void onRecycled();
+
 /*
     default void onViewAttachedToWindow(VH holder) { */
 /* stub *//*

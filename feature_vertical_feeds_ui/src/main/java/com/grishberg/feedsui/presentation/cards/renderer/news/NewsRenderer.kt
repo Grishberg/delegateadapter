@@ -1,4 +1,4 @@
-package com.grishberg.verticalfeeds.renderer.news
+package com.grishberg.feedsui.presentation.cards.renderer.news
 
 /**
  * Renders news item.

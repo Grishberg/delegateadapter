@@ -12,6 +12,7 @@ import com.grishberg.domain.di.ContentDetailsModule;
 import com.grishberg.domain.di.DaggerContentDetailsComponent;
 import com.grishberg.feedsui.presentation.RenderedFeedsFactory;
 import com.grishberg.feedsui.presentation.VerticalFeedFacade;
+import com.grishberg.feedsui.presentation.cards.renderer.RendererProvider;
 import com.grishberg.horizontalfeed.HorizontalContent;
 import com.grishberg.horizontalfeed.HorizontalFeedFacade;
 import com.grishberg.horizontalfeed.cards.FeedConverterImpl;
@@ -51,8 +52,9 @@ public class MainActivity extends FragmentActivity {
 
         ViewGroup content = findViewById(R.id.content);
 
+        RendererProvider rendererProvider = new RendererProvider();
         VerticalFeedComponent verticalFeedComponent = DaggerVerticalFeedComponent.builder()
-                .feedModule(new FeedModule(new RenderedFeedsFactory()))
+                .feedModule(new FeedModule(new RenderedFeedsFactory(rendererProvider)))
                 .build();
         verticalFeedContent = verticalFeedComponent.provideFeedContent();
 

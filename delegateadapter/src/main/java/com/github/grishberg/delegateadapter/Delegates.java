@@ -51,6 +51,12 @@ class Delegates<T> {
 
     void onViewRecycled(RecycableViewHolder vh) {
         vh.onRecycled();
+        AdapterDelegate delegate = delegates.get(vh.getItemViewType());
+        if (delegate == null) {
+            throw new IllegalStateException("Not found delegate for viewType = "
+                    + vh.getItemViewType());
+        }
+        delegate.onRecycled();
     }
 
     @SuppressWarnings("unchecked")

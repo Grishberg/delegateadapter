@@ -7,10 +7,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.grishberg.core.ComponentScope
 import com.grishberg.core.ComponentScopeAction
+import com.grishberg.feedsui.presentation.cards.renderer.RendererProvider
 import com.grishberg.verticalfeeds.FeedContent
 
 class VerticalFeedFacade(
-        private val content: FeedContent
+        private val content: FeedContent,
+        private val rendererProvider: RendererProvider
 ) : ComponentScope {
     private val scopeActions = mutableListOf<ComponentScopeAction>()
     private var initiated: Boolean = false
@@ -20,7 +22,7 @@ class VerticalFeedFacade(
         val viewModel = ViewModelProviders
                 .of(activity, ViewModelFactory(content))
                 .get(VerticalFeedViewModel::class.java)
-        view = VerticalFeedView(viewModel, activity).apply {
+        view = VerticalFeedView(viewModel, activity, rendererProvider).apply {
             layoutParams = lp
         }
         parent.addView(view)

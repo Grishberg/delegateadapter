@@ -1,21 +1,19 @@
 package com.grishberg.verticalfeeds
 
 import com.grishberg.detailedinfo.DetailedInfo
-import com.grishberg.verticalfeeds.renderer.ads.AdsRenderer
-import com.grishberg.verticalfeeds.renderer.news.NewsRenderer
 
-typealias NewsCard = FeedItem<NewsRenderer>
-typealias AdsCard = FeedItem<AdsRenderer>
-typealias AnyFeedItem = FeedItem<*>
+typealias NewsCard = FeedItem
+typealias AdsCard = FeedItem
+typealias AnyFeedItem = FeedItem
 
 /**
  * Vertical Feed content entity
  */
-interface FeedItem<RENDERER> {
+interface FeedItem {
     val type: CardType
 
-    fun render(renderer: RENDERER)
+    fun render()
     fun isIdEquals(id: Int): Boolean
-    fun isIdEquals(renderer: FeedItem<*>): Boolean
+    fun isIdEquals(other: FeedItem): Boolean
     fun provideDetailedInfo(): DetailedInfo
 }
