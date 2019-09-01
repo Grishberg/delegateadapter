@@ -1,12 +1,15 @@
 package com.grishberg.listarch.listarchitecture;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.grishberg.consoleview.Logger;
-import com.github.grishberg.consoleview.LoggerImpl;
-import com.grishberg.core.ActivityLifeCycleAction;
-import com.grishberg.core.ActivityLifeCycleDelegate;
+import com.grishberg.content.ContentDetails;
+import com.grishberg.contentui.ContentViewHolder;
+import com.grishberg.contentui.ContentViewModel;
+import com.grishberg.domain.di.ContentDetailsComponent;
+import com.grishberg.domain.di.ContentDetailsModule;
+import com.grishberg.domain.di.DaggerContentDetailsComponent;
 import com.grishberg.feedsui.presentation.RenderedFeedsFactory;
 import com.grishberg.feedsui.presentation.VerticalFeedFacade;
 import com.grishberg.horizontalfeed.HorizontalContent;
@@ -14,8 +17,11 @@ import com.grishberg.horizontalfeed.HorizontalFeedFacade;
 import com.grishberg.horizontalfeed.cards.FeedConverterImpl;
 import com.grishberg.horizontalfeed.cards.HorizontalCardsFactoryImpl;
 import com.grishberg.horizontalfeed.di.DaggerHorizontalFeedComponent;
-import com.grishberg.horizontalfeed.di.HorisontalFeedModule;
 import com.grishberg.horizontalfeed.di.HorizontalFeedComponent;
+import com.grishberg.horizontalfeed.di.HorizontalFeedModule;
+import com.grishberg.listarch.listarchitecture.domain.ApplicationUseCase;
+import com.grishberg.listarch.listarchitecture.presentation.Router;
+import com.grishberg.listarch.listarchitecture.presentation.RouterViewModel;
 import com.grishberg.verticalfeeds.FeedContent;
 import com.grishberg.verticalfeedsdomain.di.DaggerVerticalFeedComponent;
 import com.grishberg.verticalfeedsdomain.di.FeedModule;
@@ -23,21 +29,25 @@ import com.grishberg.verticalfeedsdomain.di.VerticalFeedComponent;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends FragmentActivity implements ActivityLifeCycleDelegate {
-    private Logger log;
+public class MainActivity extends FragmentActivity {
     private VerticalFeedFacade verticalFeedFacade;
-    private ArrayList<ActivityLifeCycleAction> lifecycleActions = new ArrayList<>();
     private HorizontalFeedFacade horizontalFeedFacade;
     private FeedContent verticalFeedContent;
+    private ApplicationUseCase applicationUseCase;
+    private ContentViewModel contentViewModel;
+    private Router router;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        log = new LoggerImpl();
 
         ViewGroup content = findViewById(R.id.content);
 
@@ -47,7 +57,7 @@ public class MainActivity extends FragmentActivity implements ActivityLifeCycleD
         verticalFeedContent = verticalFeedComponent.provideFeedContent();
 
         HorizontalFeedComponent horizontalFeedComponent = DaggerHorizontalFeedComponent.builder()
-                .horisontalFeedModule(new HorisontalFeedModule(verticalFeedContent,
+                .horizontalFeedModule(new HorizontalFeedModule(verticalFeedContent,
                         new FeedConverterImpl(), new HorizontalCardsFactoryImpl()))
                 .build();
         HorizontalContent horizontalContent = horizontalFeedComponent.provideHorizontalFeedContent();
@@ -59,6 +69,24 @@ public class MainActivity extends FragmentActivity implements ActivityLifeCycleD
         ViewGroup.LayoutParams verticalsLp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         verticalFeedFacade.attachView(this, content, verticalsLp);
+
+        ContentDetailsComponent contentDetailsComponent = DaggerContentDetailsComponent.builder()
+                .contentDetailsModule(new ContentDetailsModule())
+                .build();
+        ContentDetails contentDetails = contentDetailsComponent.provideContentDetails();
+        contentViewModel = ViewModelProviders.of(this, new ContentViewModelFactory(contentDetails))
+                .get(ContentViewModel.class);
+        View contentDetailsRootView = findViewById(R.id.contentDetailsRoot);
+
+        ContentViewHolder contentViewHolder = new ContentViewHolder(this, contentViewModel,
+                contentDetailsRootView);
+        applicationUseCase = new ApplicationUseCase(contentDetails, horizontalContent, verticalFeedContent);
+        RouterViewModel routerViewModel = ViewModelProviders.of(this, new RouterViewModelFactory(applicationUseCase))
+                .get(RouterViewModel.class);
+
+        router = new Router(this, routerViewModel,
+                contentDetailsRootView,
+                findViewById(R.id.feedView));
         horizontalContent.requestData();
     }
 
@@ -69,28 +97,37 @@ public class MainActivity extends FragmentActivity implements ActivityLifeCycleD
     }
 
     @Override
-    public void registerActivityLifeCycleAction(ActivityLifeCycleAction action) {
-        lifecycleActions.add(action);
+    public void onBackPressed() {
+        router.onBackPressed();
     }
 
-    @Override
-    public void unregisterActivityLifeCycleAction(ActivityLifeCycleAction action) {
-        lifecycleActions.remove(action);
-    }
+    private static class RouterViewModelFactory implements ViewModelProvider.Factory {
+        private final ApplicationUseCase applicationUseCase;
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        for (ActivityLifeCycleAction a : lifecycleActions) {
-            a.onResume();
+        RouterViewModelFactory(ApplicationUseCase applicationUseCase) {
+            this.applicationUseCase = applicationUseCase;
+        }
+
+        @SuppressWarnings("unchecked")
+        @NonNull
+        @Override
+        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+            return (T) new RouterViewModel(applicationUseCase);
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        for (ActivityLifeCycleAction a : lifecycleActions) {
-            a.onPause();
+    private static class ContentViewModelFactory implements ViewModelProvider.Factory {
+        private final ContentDetails contentDetails;
+
+        public ContentViewModelFactory(ContentDetails contentDetails) {
+            this.contentDetails = contentDetails;
+        }
+
+        @SuppressWarnings("unchecked")
+        @NonNull
+        @Override
+        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+            return (T) new ContentViewModel(contentDetails);
         }
     }
 }
