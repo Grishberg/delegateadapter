@@ -7,23 +7,23 @@ import com.grishberg.horizontalfeed.InputBoundsAction
 import java.util.*
 
 class HorizontalItemsRepository(
-        private val horizontalCardsFactory: com.grishberg.horizontalfeed.HorizontalCardsFactory
-) : com.grishberg.horizontalfeed.InputBounds {
-    private val actions = mutableListOf<com.grishberg.horizontalfeed.InputBoundsAction>()
-    private val items = mutableListOf<com.grishberg.horizontalfeed.HorizontalItem<*>>()
+        private val horizontalCardsFactory: HorizontalCardsFactory
+) : InputBounds {
+    private val actions = mutableListOf<InputBoundsAction>()
+    private val items = mutableListOf<HorizontalItem<*>>()
 
-    override fun addInputAction(action: com.grishberg.horizontalfeed.InputBoundsAction) {
+    override fun addInputAction(action: InputBoundsAction) {
         actions.add(action)
         if (items.isNotEmpty()) {
             action.onHorizontalItemUpdated()
         }
     }
 
-    override fun removeInputAction(action: com.grishberg.horizontalfeed.InputBoundsAction) {
+    override fun removeInputAction(action: InputBoundsAction) {
         actions.remove(action)
     }
 
-    override fun getItems(): List<com.grishberg.horizontalfeed.HorizontalItem<*>> = items
+    override fun getItems(): List<HorizontalItem<*>> = items
 
     override fun requestItems() {
         items.clear()
@@ -31,8 +31,8 @@ class HorizontalItemsRepository(
         notifyItemUpdated()
     }
 
-    private fun createData(): List<com.grishberg.horizontalfeed.HorizontalItem<*>> {
-        val res = ArrayList<com.grishberg.horizontalfeed.HorizontalItem<*>>()
+    private fun createData(): List<HorizontalItem<*>> {
+        val res = ArrayList<HorizontalItem<*>>()
         for (i in 0..19) {
             if (i % 2 == 0) {
                 res.add(horizontalCardsFactory.createRedItem(i, "Menu item $i"))

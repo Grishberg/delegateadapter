@@ -1,4 +1,4 @@
-package com.grishberg.horizontalfeed.rv;
+package com.grishberg.horizontalfeed.rv.adapter;
 
 import android.view.View;
 import android.widget.TextView;

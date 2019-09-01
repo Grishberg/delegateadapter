@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply from: '../lint.gradle'
 apply from: '../dagger-dependencies.gradle'
 
@@ -29,13 +30,13 @@ dependencies {
 
     implementation project(path: ':delegateadapter')
     implementation project(path: ':core')
-    implementation project(path: ':feature_content')
-    implementation project(path: ':feature_horizontal_feed_ui')
     implementation project(path: ':feature_vertical_feeds_domain')
     implementation project(path: ':feature_vertical_feeds_ui')
     implementation project(path: ':feature_vertical_feeds')
-    implementation project(path: ':feature_horizontal_feed_domain')
     implementation project(path: ':feature_horizontal_feed')
+    implementation project(path: ':feature_horizontal_feed_domain')
+    implementation project(path: ':feature_horizontal_feed_ui')
+    implementation project(path: ':feature_content')
     implementation project(path: ':feature_content_ui')
     implementation project(path: ':feature_content_domain')
 }

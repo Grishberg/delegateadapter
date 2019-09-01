@@ -3,7 +3,10 @@ package com.grishberg.listarch.listarchitecture.domain
 import com.grishberg.content.ContentDetails
 import com.grishberg.horizontalfeed.AnyHorizontalCard
 import com.grishberg.horizontalfeed.HorizontalContent
+import com.grishberg.horizontalfeed.HorizontalItem
 import com.grishberg.horizontalfeed.OutputBoundsAction
+import com.grishberg.horizontalfeed.renderer.alerts.AlertRenderer
+import com.grishberg.horizontalfeed.renderer.teasers.TeaserRenderer
 import com.grishberg.verticalfeeds.FeedContent
 
 class ApplicationUseCase(
@@ -13,41 +16,65 @@ class ApplicationUseCase(
 ) {
     private val outputBounds = mutableListOf<OutputBounds>()
     private val horizontalContentOutput = HorizontalContentOutput()
+    private val feedState = FeedState()
+    private val detailedState = DetailedState()
+    private var state: State = feedState
 
     init {
         horizontalContent.registerOutputBoundsUpdateAction(horizontalContentOutput)
     }
 
-    /**
-     * Is called when user want to return from detailed info screen.
-     * TODO: maybe should subscribe on this event from {@link ContentDetails} ?
-     */
-    fun returnToPrevousScreen() {
-        // TODO: check current state, if there is details state - show feed screen.
-        notifyShowFeeds()
+    fun registerOutputBounds(bounds: OutputBounds) {
+        outputBounds.add(bounds)
     }
 
-    private fun notifyShowFeeds() {
-        for (bounds in outputBounds) {
-            bounds.showFeeds()
-        }
+    fun unregisterOutputBounds(bounds: OutputBounds) {
+        outputBounds.remove(bounds)
+    }
+
+    /**
+     * Is called when user press back.
+     */
+    fun onBackPressed() {
+        state.onBackPressed()
     }
 
     private inner class HorizontalContentOutput : OutputBoundsAction {
-        override fun updateItems(items: List<AnyHorizontalCard>) {
-            // TODO: maybe create separate interface to avoid this stubs?
-            /* not used */
-        }
-
         override fun onItemSelected(clickedCard: AnyHorizontalCard) {
+
+            state.onCardSelected()
             contentDetails.requestCardDetails(clickedCard)
-            notifyShowDetailedInformationHorizontal()
         }
     }
 
-    private fun notifyShowDetailedInformationHorizontal() {
-        for (bounds in outputBounds) {
-            bounds.showDetailedInformation()
+    private inner class DetailedState : State {
+        override fun onBackPressed() {
+            state = feedState
+            notifyShowFeeds()
         }
+
+        private fun notifyShowFeeds() {
+            for (bounds in outputBounds) {
+                bounds.showFeeds()
+            }
+        }
+    }
+
+    private inner class FeedState : State {
+        override fun onCardSelected() {
+            state = detailedState
+            notifyShowDetailedInformationHorizontal()
+        }
+
+        private fun notifyShowDetailedInformationHorizontal() {
+            for (bounds in outputBounds) {
+                bounds.showDetailedInformation()
+            }
+        }
+    }
+
+    private interface State {
+        fun onBackPressed() = Unit
+        fun onCardSelected() = Unit
     }
 }

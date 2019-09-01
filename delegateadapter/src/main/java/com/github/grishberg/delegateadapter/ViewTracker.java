@@ -1,14 +1,16 @@
 package com.github.grishberg.delegateadapter;
 
+import android.util.Log;
+
+import java.util.HashMap;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
-import android.util.SparseIntArray;
 
 public class ViewTracker implements ItemsTracker {
     private static final String TAG = ViewTracker.class.getSimpleName();
     private int prevStartPos = -1;
-    private final SparseIntArray counts = new SparseIntArray();
+    private final HashMap<Object, Integer> counts = new HashMap<>();
 
     public void startTracking(final RecyclerView rv) {
         if (!(rv.getLayoutManager() instanceof LinearLayoutManager)) {
@@ -44,8 +46,10 @@ public class ViewTracker implements ItemsTracker {
                 return;
             }
 
-            int id = (int) adapter.getItemId(i);
-            counts.put(id, counts.get(id) + 1);
+            Object item = adapter.getItem(i).hashCode();
+            Integer c = counts.get(item);
+            int count = c != null ? c : 0;
+            counts.put(item, count + 1);
         }
     }
 

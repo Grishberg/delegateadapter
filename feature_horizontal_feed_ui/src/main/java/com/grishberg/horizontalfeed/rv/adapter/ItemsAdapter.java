@@ -1,4 +1,4 @@
-package com.grishberg.horizontalfeed.rv;
+package com.grishberg.horizontalfeed.rv.adapter;
 
 import com.github.grishberg.delegateadapter.AdapterDelegate;
 import com.github.grishberg.delegateadapter.CompositeDelegateAdapter;

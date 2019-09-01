@@ -2,8 +2,6 @@ package com.github.grishberg.delegateadapter;
 
 import android.view.ViewGroup;
 
-import com.grishberg.delegateadapter.ItemWithId;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Adapter with composition of delegate.
  */
-public class CompositeDelegateAdapter<T extends ItemWithId> extends RecyclerView.Adapter<RecycableViewHolder> {
+public class CompositeDelegateAdapter<T> extends RecyclerView.Adapter<RecycableViewHolder> {
     private final ArrayList<T> items = new ArrayList<>();
     private final Delegates<T> delegates;
 
@@ -42,9 +40,8 @@ public class CompositeDelegateAdapter<T extends ItemWithId> extends RecyclerView
         return items.size();
     }
 
-    @Override
-    public long getItemId(int position) {
-        return items.get(position).getId();
+    T getItem(int position) {
+        return items.get(position);
     }
 
     @NonNull

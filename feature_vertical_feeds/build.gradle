@@ -5,6 +5,7 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation project(path: ':core')
+    api project(path: ':detailed_info')
 }
 
 repositories {

@@ -8,17 +8,17 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class HorisontalFeedModule(
+class HorizontalFeedModule(
         private val verticalFeedContent: FeedContent,
         private val verticalFeedConverter: FeedConverter,
-        private val horizontalCardsFactory: com.grishberg.horizontalfeed.HorizontalCardsFactory
+        private val horizontalCardsFactory: HorizontalCardsFactory
 ) {
     @Provides
     @Singleton
-    fun providesInputBounds(): com.grishberg.horizontalfeed.InputBounds = HorizontalItemsRepository(horizontalCardsFactory)
+    fun providesInputBounds(): InputBounds = HorizontalItemsRepository(horizontalCardsFactory)
 
     @Provides
     @Singleton
-    fun provideHorizontalContent(bounds: com.grishberg.horizontalfeed.InputBounds): com.grishberg.horizontalfeed.HorizontalContent =
+    fun provideHorizontalContent(bounds: InputBounds): HorizontalContent =
             HorizontalContentImpl(bounds, verticalFeedContent, verticalFeedConverter)
 }

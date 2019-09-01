@@ -15,11 +15,22 @@ class RouterViewModel(
     private val _showCardContentScreen = MutableLiveData<Boolean>()
     val showCardContentScreen: LiveData<Boolean> = _showCardContentScreen
 
+    init {
+        applicationLogic.registerOutputBounds(this)
+    }
     override fun showDetailedInformation() {
         _showCardContentScreen.value = true
     }
 
     override fun showFeeds() {
         _showCardContentScreen.value = false
+    }
+
+    override fun onCleared() {
+        applicationLogic.unregisterOutputBounds(this)
+    }
+
+    fun onBackPressed() {
+        applicationLogic.onBackPressed()
     }
 }

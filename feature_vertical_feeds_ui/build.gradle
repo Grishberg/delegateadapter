@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply from: '../dagger-dependencies.gradle'
 apply from: '../testing-dependencies.gradle'
 apply from: '../lint.gradle'
@@ -29,7 +29,7 @@ android {
 }
 
 dependencies {
-    //kapt 'com.google.dagger:dagger-compiler:2.20'
+    kapt 'com.google.dagger:dagger-compiler:2.20'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 

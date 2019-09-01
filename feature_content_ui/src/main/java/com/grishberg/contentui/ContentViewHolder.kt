@@ -1,16 +1,15 @@
 package com.grishberg.contentui
 
-import android.graphics.Color
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
-import com.grishberg.content.DetailedInfo
-import com.grishberg.content.renderer.DetailedInfoRenderer
+import com.grishberg.detailedinfo.DetailedInfo
+import com.grishberg.detailedinfo.renderer.DetailedInfoRenderer
 
 class ContentViewHolder(
-        private val ctx: FragmentActivity,
-        private val viewModel: ContentViewModel,
+        ctx: FragmentActivity,
+        viewModel: ContentViewModel,
         private val rootView: View
 ) : DetailedInfoRenderer {
     private val titleView: TextView = rootView.findViewById(R.id.contentTitleView)
@@ -34,6 +33,6 @@ class ContentViewHolder(
     }
 
     override fun fillBackgroundWithColor(color: Int) {
-        rootView.setBackgroundColor(Color.toArgb(color.toLong()))
+        rootView.setBackgroundColor(color)
     }
 }

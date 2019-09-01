@@ -13,7 +13,11 @@ import com.github.grishberg.delegateadapter.AdapterDelegate
 import com.github.grishberg.delegateadapter.ViewTracker
 import com.grishberg.core.ComponentScope
 import com.grishberg.core.ComponentScopeAction
-import com.grishberg.horizontalfeed.rv.*
+import com.grishberg.horizontalfeed.rv.CustomItemDecorator
+import com.grishberg.horizontalfeed.rv.adapter.GreenAdapterDelegate
+import com.grishberg.horizontalfeed.rv.adapter.ItemsAdapter
+import com.grishberg.horizontalfeed.rv.adapter.RedItemsAdapterDelegate
+import com.grishberg.horizontalfeed.rv.adapter.TeaserAdapterDelegate
 import java.util.*
 
 class HorizontalFeedFacade(
@@ -27,16 +31,6 @@ class HorizontalFeedFacade(
      * Creates new instance of view and attaches to parent.
      */
     fun attachView(rv: RecyclerView, activity: FragmentActivity) {
-        val inflater = LayoutInflater.from(activity)
-
-        val delegates = ArrayList<AdapterDelegate<*, *>>()
-        delegates.add(RedItemsAdapterDelegate(inflater))
-        delegates.add(GreenAdapterDelegate(inflater, viewModel))
-        delegates.add(TeaserAdapterDelegate(inflater))
-        adapter = ItemsAdapter(delegates)
-
-        rv.addItemDecoration(DividerItemDecoration(activity, RecyclerView.VERTICAL))
-        adapter.attachToRecyclerView(rv)
 
         val lm = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
         rv.layoutManager = lm
@@ -51,6 +45,16 @@ class HorizontalFeedFacade(
         viewModel.feeds.observe(activity, Observer<List<HorizontalItem<*>>> { feeds ->
             adapter.populate(feeds)
         })
+
+        val inflater = LayoutInflater.from(activity)
+        val delegates = ArrayList<AdapterDelegate<*, *>>()
+        delegates.add(RedItemsAdapterDelegate(inflater, viewModel))
+        delegates.add(GreenAdapterDelegate(inflater, viewModel))
+        delegates.add(TeaserAdapterDelegate(inflater, viewModel))
+        adapter = ItemsAdapter(delegates)
+
+        rv.addItemDecoration(DividerItemDecoration(activity, RecyclerView.VERTICAL))
+        adapter.attachToRecyclerView(rv)
 
         notifyInitiated()
     }
@@ -72,6 +76,7 @@ class HorizontalFeedFacade(
         scopeActions.remove(action)
     }
 
+    @SuppressWarnings("unchecked")
     private class ViewModelFactory(
             private var content: HorizontalContent
     ) : ViewModelProvider.Factory {

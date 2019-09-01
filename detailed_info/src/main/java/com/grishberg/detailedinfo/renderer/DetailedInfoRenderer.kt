@@ -1,4 +1,4 @@
-package com.grishberg.content.renderer
+package com.grishberg.detailedinfo.renderer
 
 /**
  * Used for rendering detailed info.

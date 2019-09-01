@@ -1,13 +1,22 @@
 package com.grishberg.feedsui.presentation.cards
 
+import android.graphics.Color
+import com.grishberg.detailedinfo.DetailedInfo
 import com.grishberg.verticalfeeds.CardType
+import com.grishberg.verticalfeeds.FeedItem
 import com.grishberg.verticalfeeds.NewsCard
 import com.grishberg.verticalfeeds.renderer.news.NewsRenderer
 
 internal class NewsFeed(private val id: Int,
                         private val title: String,
                         private val description: String) : NewsCard {
-    override fun getId(): Int = id
+
+    override fun isIdEquals(other: FeedItem<*>): Boolean {
+        if (other !is NewsFeed) {
+            return false
+        }
+        return id == other.id
+    }
 
     override val type: CardType = CardType.NEWS
 
@@ -15,4 +24,6 @@ internal class NewsFeed(private val id: Int,
         renderer.showTitle(title)
         renderer.showDescription(description)
     }
+
+    override fun provideDetailedInfo(): DetailedInfo = NewsDetailInfo(title, Color.CYAN)
 }
