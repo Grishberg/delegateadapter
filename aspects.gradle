@@ -1,0 +1,13 @@
+if (aspects_enabled) {
+    apply plugin: 'com.archinamon.aspectj-ext'
+    aspectj {
+        includeAspectsFromJar 'profiler'
+        ajcArgs << '-referenceInfo' << '-warn:deprecation'
+        includeAllJars true
+        experimental true
+    }
+
+    dependencies {
+        implementation project(':profiler')
+    }
+}

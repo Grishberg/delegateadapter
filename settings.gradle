@@ -1,1 +1,15 @@
-include ':app', ':delegateadapter', ':core', ':feature_vertical_feeds_domain', ':feature_content', ':feature_horizontal_feed_ui', ':feature_vertical_feeds_ui', ':feature_horizontal_feed_domain', ':feature_vertical_feeds', ':delegateadapter_core', ':feature_horizontal_feed', ':feature_content_domain', ':feature_content_ui', ':detailed_info'
+include ':delegateadapter_core',
+        ':delegateadapter',
+        ':core',
+        ':app',
+        ':feature_vertical_feeds_domain',
+        ':feature_content',
+        ':feature_horizontal_feed_ui',
+        ':feature_vertical_feeds_ui',
+        ':feature_horizontal_feed_domain',
+        ':feature_vertical_feeds',
+        ':feature_horizontal_feed',
+        ':feature_content_domain',
+        ':feature_content_ui',
+        ':detailed_info',
+        ':profiler'
